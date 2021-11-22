@@ -1,0 +1,85 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true,
+        "jest": true
+    },
+    "extends": [
+        "plugin:react/recommended",
+        "airbnb"
+    ],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 12,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react"
+    ],
+    "rules": {
+        "import/no-extraneous-dependencies": [
+            "error",
+            {
+                "devDependencies": [
+                    "./src/**/*.@(js|jsx|ts|tsx)" 
+                ]
+            }
+        ],
+
+        "jsx-a11y/label-has-associated-control": [ 2, {
+            "components": [ "Label" ],
+            "required": {
+                "some": [ "nesting", "id" ]
+            },
+            "allowChildren": false
+        }],
+
+        // Indent with 4 spaces
+        "indent": ["error", 4],
+
+        // Indent JSX with 4 spaces
+        "react/jsx-indent": ["error", 4],
+
+        // Indent props with 4 spaces
+        "react/jsx-indent-props": ["error", 4],
+
+        "max-len": [2, 200, 4, {"ignoreUrls": true}],
+
+        "react/jsx-props-no-spreading": ["off"],
+
+        "react/prop-types": 0,
+
+        "arrow-body-style": 0,
+
+        "no-useless-escape": 0,
+
+        "react-hooks/rules-of-hooks": "off",
+
+        "react-hooks/exhaustive-deps": "off",
+
+        "camelcase": "off",
+
+        "linebreak-style": ["error", "windows"],
+
+         //should add ".ts" if typescript project
+        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+
+        "no-unused-vars": [
+            "error",
+            { 
+                "argsIgnorePattern": "^_",
+                "varsIgnorePattern": "^_"
+            }
+        ],
+        "react/function-component-definition": [
+            2,
+            {
+                "namedComponents": "arrow-function",
+                "unnamedComponents": "arrow-function"
+            }
+        ]
+    },
+    "ignorePatterns": ["!**/*", "./src/**/*.@(js|jsx|ts|tsx)"]
+}
