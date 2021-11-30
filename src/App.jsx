@@ -4,6 +4,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { CustomProvider } from 'rsuite';
 import Router from './utils/router';
 import { store } from './utils/store';
+import 'rsuite/dist/rsuite.min.css';
+import './App.css';
 
 const App = () => {
     return (

@@ -1,0 +1,21 @@
+.login-input {
+    width: 100%!important;
+}
+
+@media (min-width: 1024px) {
+    input {
+        height: 40px;
+    }
+}
+
+@media (min-width: 1440px) {
+    input {
+        height: 45px;
+    }
+}
+
+@media (min-width: 1920px) {
+    input {
+        height: 50px;
+    }
+}

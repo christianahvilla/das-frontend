@@ -1,0 +1,41 @@
+.container {
+    height: 100%;
+}
+
+.login-form--title {
+    margin-bottom: 20px;
+}
+
+@media (min-width: 1024px) {
+    .login-container {
+        width: 342px;
+    }
+
+    button {
+        height: 40px;
+    }
+}
+
+@media (min-width: 1440px) {
+    .login-container {
+        width: 441px;
+    }
+
+    button {
+        height: 45px;
+    }
+}
+
+@media (min-width: 1920px) {
+    .login-container {
+        width: 610px;
+    }
+
+    button {
+        height: 50px;
+    }
+}
+
+button {
+    width: 100%;
+}

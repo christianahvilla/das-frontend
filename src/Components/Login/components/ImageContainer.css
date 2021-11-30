@@ -1,0 +1,43 @@
+.container {
+    height: 100%;
+}
+
+.image-container--title {
+    width: 100%;
+}
+
+@media (min-width: 1024px) {
+    .image-container {
+        width: 404px;
+        height: 545px;
+    }
+
+    .image-login {
+        height: 299px;
+        width: 299px;
+    }
+}
+
+@media (min-width: 1440px) {
+    .image-container {
+        width: 522px;
+        height: 703px;
+    }
+
+    .image-login {
+        height: 386px;
+        width: 386px;
+    }
+}
+
+@media (min-width: 1920px) {
+    .image-container {
+        width: 720px;
+        height: 973px;
+    }
+
+    .image-login {
+        height: 533px;
+        width: 533px;
+    }
+}
