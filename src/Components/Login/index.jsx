@@ -2,9 +2,8 @@ import React from 'react';
 import Grid from 'rsuite/Grid';
 import Row from 'rsuite/Row';
 import Col from 'rsuite/Col';
-import ImageContainer from './components/ImageContainer';
-import LoginForm from './components/Form';
-import './Login.css';
+import ImageContainer from './Components/ImageContainer';
+import LoginForm from './Components/Form';
 
 const Login = () => {
     return (

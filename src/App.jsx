@@ -2,7 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { CustomProvider } from 'rsuite';
-import Router from './utils/router';
+import Router from './router/Router';
 import { store } from './utils/store';
 import 'rsuite/dist/rsuite.min.css';
 import './App.css';

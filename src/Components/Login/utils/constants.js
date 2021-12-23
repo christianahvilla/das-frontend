@@ -9,3 +9,13 @@ export const REQUIRED_ERROR = 'Este campo es requerido';
 export const PASSWORD_REGEX = '^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$';
 export const PASSWORD_REGEX_ERROR = 'Mínimo ocho caracteres, al menos una letra, un número y un carácter especial';
 export const LOGIN_BUTTON_TEXT = 'Entrar';
+
+export const authConstants = {
+    LOGIN_BEGIN: 'LOGIN_BEGIN',
+    LOGIN_SUCCESS: 'LOGIN_SUCCESS',
+    LOGIN_ERROR: 'LOGIN_ERROR',
+
+    LOGOUT_BEGIN: 'LOGOUT_BEGIN',
+    LOGOUT_SUCCESS: 'LOGOUT_SUCCESS',
+    LOGOUT_ERROR: 'LOGOUT_ERROR',
+};
