@@ -1,0 +1,12 @@
+.appointment--row {
+    margin: 20px 0px;
+}
+
+.appointment--footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.appointment--footer--col {
+    padding-right: 0!important;
+}

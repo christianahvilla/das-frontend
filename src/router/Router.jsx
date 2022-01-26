@@ -14,7 +14,7 @@ const Router = () => {
     return (
         <Switch>
             <PublicRoute exact path="/login" Component={Login} />
-            <PrivateRoute exact path="/" Component={Layout} />
+            <PrivateRoute path="/" Component={Layout} />
             <Route path="*" component={NotFound} />
         </Switch>
     );

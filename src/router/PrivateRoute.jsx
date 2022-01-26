@@ -3,8 +3,8 @@ import {
     Redirect,
     Route,
 } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { elementType } from 'prop-types';
+import useGetUserInfo from '../hooks/useGetUserInfo';
 
 const PrivateRoute = (props) => {
     const {
@@ -12,10 +12,10 @@ const PrivateRoute = (props) => {
         ...rest
     } = props;
 
-    const authenticated = useSelector((state) => state?.auth?.authenticated) || true;
+    const [isAuthenticated] = useGetUserInfo();
 
-    const shouldRender = (prop) => (authenticated ? (<Component {...prop} />) : (
-        <Redirect to={{ pathname: '/' }} />
+    const shouldRender = (prop) => (isAuthenticated ? (<Component {...prop} />) : (
+        <Redirect to={{ pathname: '/login' }} />
     ));
 
     return (

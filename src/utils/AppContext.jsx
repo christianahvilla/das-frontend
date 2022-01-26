@@ -9,13 +9,11 @@ const AppProvider = (props) => {
 
     const [state, setState] = useState({
         openDialog: false,
-        openSnackbar: false,
-        notificationMessage: '',
-        notificationSeverity: '',
-        authtenticated: false,
-        sigin: null,
-        logout: null,
-        user: null,
+        loading: false,
+        dialog: {
+            title: '',
+            message: '',
+        },
     });
 
     const value = useMemo(() => [state, setState], [state]);

@@ -39,6 +39,7 @@ const Chart = (props) => {
 Chart.defaultProps = {
     body: null,
     height: 250,
+    title: null,
     width: 400,
 };
 
@@ -47,7 +48,7 @@ Chart.propTypes = {
     height: number,
     options: shape({}).isRequired,
     series: arrayOf(shape({})).isRequired,
-    title: string.isRequired,
+    title: string,
     type: string.isRequired,
     width: number,
 };

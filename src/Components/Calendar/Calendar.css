@@ -1,0 +1,41 @@
+.calendar-title {
+    margin-top: 55px;
+}
+
+.calendar-container {
+    padding: 20px 0;
+}
+
+.fc-button.fc-button-primary {
+    width: fit-content;
+}
+
+/* .calendar-todo-list {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+} */
+
+.calendar-todo-list li {
+    overflow: visible;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-height: 300px;
+}
+
+.calendar-todo-list > li:hover > .rs-badge-dot {
+    visibility: hidden;
+}
+
+.events-popover-container:hover > .rs-badge-dot {
+    visibility: hidden;
+}
+
+.rs-badge-dot {
+    margin-right: 5px;
+}
+
+
+.events-popover-container {
+    width: max-content;
+}
