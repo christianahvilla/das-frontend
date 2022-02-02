@@ -1,0 +1,19 @@
+.panel--welcome {
+    background-color: #EAD7FD;
+    margin-top: 55px;
+    height: 332px;
+    border-radius: 24px!important;
+}
+
+.body--welcome {
+    width: fit-content;
+}
+
+.rs-panel-body {
+    padding: 18px;
+}
+
+.title--welcome {
+    margin-top: 50px;
+    margin-left: 50px;
+}
