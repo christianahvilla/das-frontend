@@ -1,3 +1,12 @@
 .body--container {
     flex-direction: row!important;
 }
+
+.rs-sidebar {
+    display: flex;
+    flex-direction: column;
+}
+
+.rs-container-has-sidebar {
+    height: 100%;
+}

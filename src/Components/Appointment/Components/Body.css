@@ -1,0 +1,11 @@
+.appointment-date--container {
+    padding-left: 0!important;
+}
+
+.appointment-date--datePicker {
+    padding-left: 0!important;
+}
+
+.help-text--error {
+    color: var(--rs-red-500)!important;
+}

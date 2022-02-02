@@ -6,3 +6,7 @@ html, body, #root, #root>div {
     height: 100%;
     overflow: scroll;
 }
+
+.rs-form-group {
+    margin-bottom: 35px!important;
+}

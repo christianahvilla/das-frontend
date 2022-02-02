@@ -2,3 +2,7 @@
     margin: 20px 0px;
     overflow: scroll!important;
 }
+
+.rs-panel-body {
+    overflow: hidden;
+}

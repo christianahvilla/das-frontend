@@ -1,3 +1,9 @@
+export const params = {
+    headers: {
+        Accept: 'application/json',
+    },
+};
+
 export const PROGRESS_SPEEDS = [
     'fast',
     'normal',

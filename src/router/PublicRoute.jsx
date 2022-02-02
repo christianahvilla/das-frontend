@@ -3,8 +3,9 @@ import {
     Redirect,
     Route,
 } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { elementType } from 'prop-types';
+import useGetUserInfo from '../hooks/useGetUserInfo';
+import useNavigate from '../hooks/useNavigate';
 
 const PublicRoute = (props) => {
     const {
@@ -12,10 +13,11 @@ const PublicRoute = (props) => {
         ...rest
     } = props;
 
-    const authenticated = useSelector((state) => state?.auth?.authenticated);
+    const [isAuthenticated] = useGetUserInfo();
+    const [prevRoute] = useNavigate();
 
-    const shouldRender = (prop) => (!authenticated ? (<Component {...prop} />) : (
-        <Redirect to={{ pathname: '/login' }} />
+    const shouldRender = (prop) => (!isAuthenticated ? (<Component {...prop} />) : (
+        <Redirect to={{ pathname: `/${prevRoute}` }} />
     ));
 
     return (
