@@ -1,5 +1,7 @@
 import * as dateFns from 'date-fns';
 import moment from 'moment';
+import { v4 as uuidv4 } from 'uuid';
+import { INITIAL_APPOINTMENT } from './constants';
 
 /* eslint-disable import/prefer-default-export */
 export const fakeAddEvent = (value, onBegin, onSuccess, onError) => {
@@ -13,38 +15,6 @@ export const fakeAddEvent = (value, onBegin, onSuccess, onError) => {
     }
 };
 
-export const formatDate = (date) => {
-    if (typeof date !== 'object' || !date) {
-        return new Date();
-    }
-
-    return new Date(date);
-};
-
-export const formatHour = (startHour, isEnd = false, endHour = null) => {
-    if (startHour && !isEnd) {
-        return new Date(startHour);
-    }
-
-    if (endHour && isEnd) {
-        return new Date(endHour);
-    }
-
-    if (!startHour && !isEnd) {
-        return new Date();
-    }
-
-    if (!endHour && isEnd && startHour) {
-        const hour = new Date(startHour);
-
-        hour.setHours(hour.getHours() + 1);
-
-        return moment(hour, 'HH:mm').toDate();
-    }
-
-    return new Date();
-};
-
 const getDisabledDate = (date) => {
     if (dateFns.isToday(date, new Date())) {
         return false;
@@ -52,29 +22,6 @@ const getDisabledDate = (date) => {
 
     return dateFns.isBefore(date, new Date());
 };
-
-// /**
-//  * getValue to get time with current hour
-//  * @param {Date} date
-//  * @param {boolean} isStart
-//  * * @param {String} startDate
-//  * * @param {String} endDate
-//  * @return string
-//  */
-// const getValue = (type, isStart, startDate, endDate) => {
-//     if (isStart) {
-//         if (type === 'date') {
-//             return startDate;
-//         }
-//         return startDate;
-//     } if (type === 'date') {
-//         return endDate;
-//     }
-
-//     const hour = new Date(endDate);
-//     hour.setHours(hour.getHours() + 1);
-//     return hour;
-// };
 
 const getHiddenHours = (hour) => hour < 8 || hour > 20;
 const getHiddenMinutes = (minute) => minute % 15 !== 0;
@@ -102,5 +49,63 @@ export const getDatePickerConfig = (format) => {
         plaintext: false,
         readOnly: false,
         size: 'lg',
+    };
+};
+
+export const formattedValues = (values, id) => {
+    const newValues = {
+        ...values,
+        id: id || uuidv4(),
+        start_date: moment(values.start_date).format('L'),
+        end_date: moment(values.end_date).format('L'),
+        start_hour: moment(values.start_hour).format('HH:mm'),
+        end_hour: moment(values.end_hour).format('HH:mm'),
+    };
+
+    return newValues;
+};
+
+const formatHour = (time) => {
+    const defaultDate = new Date();
+
+    defaultDate.setHours(+time[0]);
+    defaultDate.setMinutes(+time[1]);
+
+    return defaultDate;
+};
+
+const formatDate = (date) => {
+    const defaultDate = new Date();
+
+    defaultDate.setMonth((+date[0] - 1), date[1]);
+    defaultDate.setFullYear(+date[2]);
+
+    return defaultDate;
+};
+
+export const getInitialValues = (values, id) => {
+    if (typeof id !== 'string' || values === null) {
+        return INITIAL_APPOINTMENT;
+    }
+
+    return values;
+};
+
+export const formmatAppointmentValues = (appointment) => {
+    if (typeof appointment !== 'object' || appointment === null) {
+        return INITIAL_APPOINTMENT;
+    }
+
+    const startDate = formatDate(appointment.start_date.split('/'));
+    const endDate = formatDate(appointment.end_date.split('/'));
+    const startTime = formatHour(appointment.start_hour.split(':'));
+    const endTime = formatHour(appointment.end_hour.split(':'));
+
+    return {
+        ...appointment,
+        start_date: startDate,
+        start_hour: startTime,
+        end_date: endDate,
+        end_hour: endTime,
     };
 };

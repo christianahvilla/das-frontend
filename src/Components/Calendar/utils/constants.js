@@ -4,7 +4,7 @@ import moment from 'moment';
 
 moment.locale('es-mx');
 
-export const EVENT = [
+export const EVENTS = [
     {
         id: 'asd2',
         title: 'Alison',

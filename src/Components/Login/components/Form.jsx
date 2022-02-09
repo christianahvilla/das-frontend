@@ -12,8 +12,15 @@ import { model } from '../utils/model';
 import TextField from '../../TextField/TextField';
 import './Form.css';
 import authActions from '../utils/actions';
-import { fakeAuth } from '../utils/helpers';
 import useGlobalToaster from '../../../hooks/useGlobalToaster';
+import { postQueryPayload } from '../../../utils/api';
+import endpoints from '../utils/urls';
+
+const params = {
+    headers: {
+        Accept: 'application/json',
+    },
+};
 
 const LoginForm = () => {
     const formRef = useRef();
@@ -36,7 +43,7 @@ const LoginForm = () => {
     const fetchAuthSuccess = (response) => dispatch(authActions.fetchAuthSuccess(response));
     const fetchAuthError = (apiError) => dispatch(authActions.fetchAuthError(apiError));
 
-    const authProvier = () => fakeAuth(fetchAuthBegin, fetchAuthSuccess, fetchAuthError);
+    const authProvider = () => postQueryPayload(endpoints.login, formValue, params, fetchAuthBegin, fetchAuthSuccess, fetchAuthError);
 
     useEffect(() => {
         if (!error) {
@@ -52,7 +59,7 @@ const LoginForm = () => {
             return;
         }
 
-        authProvier();
+        authProvider();
     };
 
     return (

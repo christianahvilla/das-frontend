@@ -8,9 +8,10 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.24.0",
-    "das-ui": "^1.6.5",
+    "das-ui": "^1.6.7",
     "date-fns": "^2.28.0",
     "env-cmd": "^10.1.0",
+    "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "prop-types": "^15.7.2",
     "qs": "^6.10.3",
@@ -26,6 +27,7 @@
     "redux-thunk": "^2.4.0",
     "rsuite": "^5.2.2",
     "serve": "^13.0.2",
+    "uuid": "^8.3.2",
     "web-vitals": "^1.1.2"
   },
   "scripts": {

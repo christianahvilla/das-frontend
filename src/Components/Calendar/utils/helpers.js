@@ -6,7 +6,6 @@ import {
 import CommonBadge from 'das-ui/dist/Badge/CommonBadge';
 import CommonButton from 'das-ui/dist/Button/CommonButton';
 import moment from 'moment';
-import { EVENT } from './constants';
 
 moment.locale('es-mx');
 
@@ -20,13 +19,12 @@ const getFilteredList = (date, list = []) => {
     const day = moment(date).format('L');
 
     const filteredList = list?.filter((event) => {
-        const eventDate = moment(event.date).format('L');
-        return eventDate.includes(day);
+        return event.start_date.includes(day);
     });
 
     const sortedList = filteredList.sort((a, b) => {
-        const formattedA = moment(`${a.date} ${a.hour}`).utc().valueOf();
-        const formattedB = moment(`${b.date} ${b.hour}`).utc().valueOf();
+        const formattedA = moment(`${a.start_date} ${a.start_hour}`).utc().valueOf();
+        const formattedB = moment(`${b.start_date} ${b.start_hour}`).utc().valueOf();
 
         return formattedA - formattedB;
     });
@@ -35,14 +33,14 @@ const getFilteredList = (date, list = []) => {
 };
 
 /**
- * fakeRenderCell to display data on calendar
+ * renderCell to display data on calendar
  * @param {Date} date
  * @param {function onClick({string} id) {}} onClick
  * @param {Array} list
  * @returns {React}
  */
 
-export const fakeRenderCell = (date, onClick, list = EVENT) => {
+export const renderCell = (date, onClick, list = []) => {
     const filteredList = getFilteredList(date, list);
     const displayList = filteredList.filter((_item, index) => index < 1);
 
@@ -60,7 +58,7 @@ export const fakeRenderCell = (date, onClick, list = EVENT) => {
                                     <div className="events-popover-container" key={item.id}>
                                         <CommonBadge color={item.color} />
                                         <CommonButton
-                                            text={`${item.hour} - ${item.title}`}
+                                            text={`${item.start_hour} - ${item.patient}`}
                                             color={item.color}
                                             size="xs"
                                             appearance="subtle"
@@ -89,7 +87,7 @@ export const fakeRenderCell = (date, onClick, list = EVENT) => {
                     <li key={item.id}>
                         <CommonBadge color={item.color} />
                         <CommonButton
-                            text={`${item.hour} - ${item.title}`}
+                            text={`${item.start_hour} - ${item.patient}`}
                             color={item.color}
                             size="xs"
                             appearance="subtle"

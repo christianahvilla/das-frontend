@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import { func, shape } from 'prop-types';
 import {
@@ -16,13 +15,13 @@ import {
     APPOINTMENT_MEDICATION_KEY,
     APPOINTMENT_NOTES,
     APPOINTMENT_NOTES_KEY,
-    APPOINTMENT_PATTIENT,
-    APPOINTMENT_PATTIENT_KEY,
+    APPOINTMENT_PATIENT,
+    APPOINTMENT_PATIENT_KEY,
     APPOINTMENT_START_DATE_KEY,
     APPOINTMENT_START_HOUR_KEY,
 } from '../utils/constants';
 import { model } from '../utils/model';
-import { formatDate, formatHour, getDatePickerConfig } from '../utils/helpers';
+import { getDatePickerConfig } from '../utils/helpers';
 import './Body.css';
 
 const Body = (props) => {
@@ -41,19 +40,15 @@ const Body = (props) => {
         end_hour: endHourError,
         start_hour: startHourError,
         notes: notesError,
-    } = formError;
+    } = formError || {};
 
     const {
         start_date,
         start_hour,
         end_date,
         end_hour,
-    } = formValue;
-
-    // const startDate = formatDate(start_date);
-    // const startHour = formatHour(start_hour);
-    // const endDate = formatDate(end_date || start_date);
-    // const endHour = formatHour(start_hour, true, end_hour);
+        notes,
+    } = formValue || {};
 
     return (
         <Form
@@ -65,40 +60,38 @@ const Body = (props) => {
             model={model}
         >
             <TextField
-                name={APPOINTMENT_PATTIENT_KEY}
-                placeholder={APPOINTMENT_PATTIENT}
+                name={APPOINTMENT_PATIENT_KEY}
+                placeholder={APPOINTMENT_PATIENT}
             />
             <TextField
                 name={APPOINTMENT_MEDICATION_KEY}
                 placeholder={APPOINTMENT_MEDICATION}
             />
             <Form.Group>
-                <div>
-                    <Grid className="appointment-date--container">
-                        <Col className="appointment-date--datePicker" xs={24} sm={12}>
-                            <CommonDatePicker
-                                onSelect={(value) => onChangeValues(value, APPOINTMENT_START_DATE_KEY)}
-                                {...getDatePickerConfig('dd-MM-yyyy')}
-                                placeholder={APPOINTMENT_DATE}
-                                defaultValue={start_date}
-                            />
-                            {startDateError && <Form.HelpText className="help-text--error">{startDateError}</Form.HelpText>}
-                        </Col>
-                        <Col xs={24} sm={12}>
-                            <CommonDatePicker
-                                onSelect={(value) => onChangeValues(value, APPOINTMENT_START_HOUR_KEY)}
-                                {...getDatePickerConfig('HH:mm')}
-                                placeholder={APPOINTMENT_HOUR}
-                                defaultValue={start_hour}
-                            />
-                            {startHourError && <Form.HelpText className="help-text--error">{startHourError}</Form.HelpText>}
-                        </Col>
-                    </Grid>
-                </div>
+                <Grid className="appointment-date--container">
+                    <Col className="appointment-date--datePicker" xs={24} sm={11}>
+                        <CommonDatePicker
+                            onSelect={(value) => onChangeValues(value, APPOINTMENT_START_DATE_KEY)}
+                            {...getDatePickerConfig('dd-MM-yyyy')}
+                            placeholder={APPOINTMENT_DATE}
+                            defaultValue={start_date}
+                        />
+                        {startDateError && <Form.HelpText className="help-text--error">{startDateError}</Form.HelpText>}
+                    </Col>
+                    <Col xs={24} smOffset={2} sm={11} style={{ paddingRight: 15 }}>
+                        <CommonDatePicker
+                            onSelect={(value) => onChangeValues(value, APPOINTMENT_START_HOUR_KEY)}
+                            {...getDatePickerConfig('HH:mm')}
+                            placeholder={APPOINTMENT_HOUR}
+                            defaultValue={start_hour}
+                        />
+                        {startHourError && <Form.HelpText className="help-text--error">{startHourError}</Form.HelpText>}
+                    </Col>
+                </Grid>
             </Form.Group>
             <Form.Group>
                 <Grid className="appointment-date--container">
-                    <Col className="appointment-date--datePicker" xs={24} sm={12}>
+                    <Col className="appointment-date--datePicker" xs={24} sm={11}>
                         <CommonDatePicker
                             onSelect={(value) => onChangeValues(value, APPOINTMENT_END_DATE_KEY)}
                             {...getDatePickerConfig('dd-MM-yyyy')}
@@ -107,7 +100,7 @@ const Body = (props) => {
                         />
                         {endDateError && <Form.HelpText className="help-text--error">{endDateError}</Form.HelpText>}
                     </Col>
-                    <Col xs={24} sm={12}>
+                    <Col xs={24} smOffset={2} sm={11} style={{ paddingRight: 15 }}>
                         <CommonDatePicker
                             onSelect={(value) => onChangeValues(value, APPOINTMENT_END_HOUR_KEY)}
                             {...getDatePickerConfig('HH:mm')}
@@ -120,9 +113,10 @@ const Body = (props) => {
             </Form.Group>
             <Form.Group>
                 <CommonTextArea
-                    onSelect={(value) => onChangeValues(value, APPOINTMENT_NOTES_KEY)}
+                    handleChange={(value) => onChangeValues(value, APPOINTMENT_NOTES_KEY)}
                     placeholder={APPOINTMENT_NOTES}
                     rows={5}
+                    defaultValue={notes}
                 />
                 {notesError && <Form.HelpText className="help-text--error">{notesError}</Form.HelpText>}
             </Form.Group>

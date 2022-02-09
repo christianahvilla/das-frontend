@@ -1,40 +1,124 @@
-/* eslint-disable no-lone-blocks */
-import React, { useRef, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import React, {
+    useEffect, useRef, useState, useMemo,
+} from 'react';
+import { useHistory, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { Col, Grid, Row } from 'rsuite';
-import { INITIAL_APPOINTMENT } from './utils/constants';
 import Header from './Components/Header';
 import Body from './Components/Body';
 import Footer from './Components/Footer';
 import useGlobalToaster from '../../hooks/useGlobalToaster';
 import appointmentActions from './utils/actions';
-import { fakeAddEvent } from './utils/helpers';
 import './Appointment.css';
+import { getQueryPayload, postQueryPayload, putQueryPayload } from '../../utils/api';
+import endpoints from './utils/urls';
+import { formattedValues, formmatAppointmentValues } from './utils/helpers';
+import Progress from '../Progress';
 
-{ /* <Event
-                formRef={formRef}
-                setFormError={setFormError}
-                formValue={formValue}
-                setFormValue={onChange}
-                isEditing={false}
-                onSubmit={handleSubmit}
-            /> */ }
+const params = {
+    headers: {
+        Accept: 'application/json',
+        authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
+};
 
 const Appointment = () => {
     const formRef = useRef();
     const [formError, setFormError] = useState({});
-    const [formValue, setFormValue] = useState(INITIAL_APPOINTMENT);
+    const [pushNotification] = useGlobalToaster();
+    const appointment = useSelector((state) => state?.appointment);
+    const {
+        appointment: appointmentValues,
+        error,
+        status,
+        loading,
+    } = appointment || {};
+
+    const { id } = useParams();
+    const [formValue, setFormValue] = useState(formmatAppointmentValues(appointmentValues));
     const history = useHistory();
     const isEditing = false;
-    const [pushNotification] = useGlobalToaster();
 
     const dispatch = useDispatch();
+    const addAppointmentBegin = () => dispatch(appointmentActions.addAppointmentBegin());
+    const addAppointmentSuccess = (response) => dispatch(appointmentActions.addAppointmentSuccess(response));
+    const addAppointmentError = (apiError) => dispatch(appointmentActions.addAppointmentError(apiError));
+
     const fetchAppointmentBegin = () => dispatch(appointmentActions.fetchAppointmentBegin());
     const fetchAppointmentSuccess = (response) => dispatch(appointmentActions.fetchAppointmentSuccess(response));
     const fetchAppointmentError = (apiError) => dispatch(appointmentActions.fetchAppointmentError(apiError));
 
-    const agendaProvider = () => fakeAddEvent(formValue, fetchAppointmentBegin, fetchAppointmentSuccess, fetchAppointmentError);
+    const updateAppointmentBegin = () => dispatch(appointmentActions.updateAppointmentBegin());
+    const updateAppointmentSuccess = (response) => dispatch(appointmentActions.updateAppointmentSuccess(response));
+    const updateAppointmentError = (apiError) => dispatch(appointmentActions.updateAppointmentError(apiError));
+
+    const saveAppointment = () => postQueryPayload(
+        endpoints.saveEvent,
+        formattedValues(formValue),
+        params,
+        addAppointmentBegin,
+        addAppointmentSuccess,
+        addAppointmentError,
+    );
+
+    const updateAppointment = () => putQueryPayload(
+        endpoints.getEventById(id),
+        formattedValues(formValue, id),
+        params,
+        updateAppointmentBegin,
+        updateAppointmentSuccess,
+        updateAppointmentError,
+    );
+
+    const getAppointment = () => getQueryPayload(
+        endpoints.getEventById(id),
+        params,
+        fetchAppointmentBegin,
+        fetchAppointmentSuccess,
+        fetchAppointmentError,
+    );
+
+    useEffect(() => {
+        return () => dispatch(appointmentActions.clearAppointment());
+    }, []);
+
+    useEffect(() => {
+        if (!id || id === 'create') {
+            return;
+        }
+
+        getAppointment();
+    }, [id]);
+
+    useEffect(() => {
+        if (error === null) {
+            return;
+        }
+
+        pushNotification(error, 'error', 'Error');
+    }, [error]);
+
+    useMemo(() => {
+        if (appointmentValues === null) {
+            return;
+        }
+
+        setFormValue(formmatAppointmentValues(appointmentValues));
+    }, [appointmentValues]);
+
+    useEffect(() => {
+        if (!status) {
+            return;
+        }
+
+        let message = 'Cita agendada';
+
+        if (id !== 'create') {
+            message = 'Cita actualizada';
+        }
+
+        pushNotification(message, 'success', 'Operacion Realizada');
+    }, [status]);
 
     const handleSubmit = () => {
         if (!formRef?.current?.check()) {
@@ -42,7 +126,12 @@ const Appointment = () => {
             return;
         }
 
-        agendaProvider();
+        if (id !== 'create') {
+            updateAppointment();
+            return;
+        }
+
+        saveAppointment();
     };
 
     const onBack = () => {
@@ -70,26 +159,29 @@ const Appointment = () => {
 
     return (
         <Grid className="appointment--container">
-            <Col xs={24}>
-                <Row className="appointment--row">
-                    <Header isEditing={isEditing} />
-                </Row>
-                <Row className="appointment--row">
-                    <Body
-                        formError={formError}
-                        formRef={formRef}
-                        setFormError={setFormError}
-                        formValue={formValue}
-                        setFormValue={setFormValue}
-                        onChangeValues={onChangeValues}
-                    />
-                </Row>
-                <Row className="appointment--footer appointment--row">
-                    <Col className="appointment--footer--col" xsOffset={20} smOffset={15} mdOffset={10}>
-                        <Footer handleClose={onBack} handleSubmit={handleSubmit} />
+            { loading ? (<Progress />)
+                : (
+                    <Col xs={24}>
+                        <Row className="appointment--row">
+                            <Header isEditing={isEditing} />
+                        </Row>
+                        <Row className="appointment--row">
+                            <Body
+                                formError={formError}
+                                formRef={formRef}
+                                setFormError={setFormError}
+                                formValue={formValue}
+                                setFormValue={setFormValue}
+                                onChangeValues={onChangeValues}
+                            />
+                        </Row>
+                        <Row className="appointment--footer appointment--row">
+                            <Col className="appointment--footer--col" xsOffset={20} smOffset={15} mdOffset={10}>
+                                <Footer handleClose={onBack} handleSubmit={handleSubmit} />
+                            </Col>
+                        </Row>
                     </Col>
-                </Row>
-            </Col>
+                ) }
         </Grid>
     );
 };
