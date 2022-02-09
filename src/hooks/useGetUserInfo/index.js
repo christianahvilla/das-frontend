@@ -7,7 +7,7 @@ export default () => {
         name,
         email,
         type,
-        token,
+        access_token: token,
     } = auth || {};
 
     const userInfo = {
@@ -17,6 +17,8 @@ export default () => {
     };
 
     const isAuthenticated = typeof token === 'string';
+
+    localStorage.setItem('token', token);
 
     return [isAuthenticated, userInfo, token];
 };

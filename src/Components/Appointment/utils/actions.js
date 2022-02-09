@@ -28,6 +28,24 @@ const updateAppointmentError = ({ message }) => ({
     payload: message,
 });
 
+const fetchAppointmentBegin = () => ({
+    type: actionsTypes.FETCH_APPOINTMENT_BEGIN,
+});
+
+const fetchAppointmentSuccess = ({ data }) => ({
+    type: actionsTypes.FETCH_APPOINTMENT_SUCCESS,
+    payload: data,
+});
+
+const fetchAppointmentError = ({ message }) => ({
+    type: actionsTypes.FETCH_APPOINTMENT_ERROR,
+    payload: message,
+});
+
+const clearAppointment = () => ({
+    type: actionsTypes.CLEAR_APPOINTMENT,
+});
+
 const appointmentActions = {
     addAppointmentBegin,
     addAppointmentSuccess,
@@ -35,6 +53,10 @@ const appointmentActions = {
     updateAppointmentBegin,
     updateAppointmentSuccess,
     updateAppointmentError,
+    fetchAppointmentBegin,
+    fetchAppointmentSuccess,
+    fetchAppointmentError,
+    clearAppointment,
 };
 
 export default appointmentActions;

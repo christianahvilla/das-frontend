@@ -17,7 +17,7 @@ const PublicRoute = (props) => {
     const [prevRoute] = useNavigate();
 
     const shouldRender = (prop) => (!isAuthenticated ? (<Component {...prop} />) : (
-        <Redirect to={{ pathname: `/${prevRoute}` }} />
+        <Redirect to={{ pathname: `${prevRoute}` }} />
     ));
 
     return (

@@ -1,40 +1,45 @@
 import actionsTypes from './actionsTypes';
 
-const deleteAppointmentBegin = () => ({
+const deleteEventBeding = () => ({
     type: actionsTypes.DELETE_APPOINTMENT_BEGIN,
 });
 
-const deleteAppointmentSuccess = ({ data }) => ({
+const deleteEventSuccess = ({ data }) => ({
     type: actionsTypes.DELETE_APPOINTMENT_SUCCESS,
     payload: data,
 });
 
-const deleteAppointmentError = ({ message }) => ({
+const deleteEventError = ({ message }) => ({
     type: actionsTypes.DELETE_APPOINTMENT_ERROR,
     payload: message,
 });
 
-const fetchAppointmentBegin = () => ({
-    type: actionsTypes.FETCH_APPOINTMENT_BEGIN,
+const fetchEventBegin = () => ({
+    type: actionsTypes.FECTH_EVENTS_BEGIN,
 });
 
-const fetchAppointmentSuccess = ({ data }) => ({
-    type: actionsTypes.FETCH_APPOINTMENT_SUCCESS,
+const fetchEventSuccess = ({ data }) => ({
+    type: actionsTypes.FECTH_EVENTS_SUCCESS,
     payload: data,
 });
 
-const fetchAppointmentError = ({ message }) => ({
-    type: actionsTypes.FETCH_APPOINTMENT_ERROR,
+const fetchEventError = ({ message }) => ({
+    type: actionsTypes.FECTH_EVENTS_ERROR,
     payload: message,
 });
 
-const appointmentActions = {
-    deleteAppointmentBegin,
-    deleteAppointmentSuccess,
-    deleteAppointmentError,
-    fetchAppointmentBegin,
-    fetchAppointmentSuccess,
-    fetchAppointmentError,
+const clearError = () => ({
+    type: actionsTypes.CLEAR_ERROR,
+});
+
+const eventActions = {
+    deleteEventBeding,
+    deleteEventSuccess,
+    deleteEventError,
+    fetchEventBegin,
+    fetchEventSuccess,
+    fetchEventError,
+    clearError,
 };
 
-export default appointmentActions;
+export default eventActions;

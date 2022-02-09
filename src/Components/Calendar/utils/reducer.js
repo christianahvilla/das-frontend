@@ -1,8 +1,8 @@
 import actionsTypes from './actionsTypes';
 
 const INITIAL_STATE = {
-    authenticated: null,
-    error: '',
+    events: [],
+    error: null,
     loading: false,
     status: null,
 };
@@ -10,37 +10,26 @@ const INITIAL_STATE = {
 // eslint-disable-next-line default-param-last
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
-    case actionsTypes.LOGIN_BEGIN:
+    case actionsTypes.FECTH_EVENTS_BEGIN:
         return {
             ...state,
             loading: true,
             status: null,
-            error: '',
+            error: null,
         };
 
-    case actionsTypes.LOGIN_SUCCESS:
-        return { ...state, authenticated: action.payload, loading: false };
-
-    case actionsTypes.LOGIN_ERROR:
-        return { ...state, error: action.payload, loading: false };
-
-    case actionsTypes.LOGOUT_BEGIN:
+    case actionsTypes.FECTH_EVENTS_SUCCESS: {
         return {
-            ...state,
-            loading: true,
-            status: null,
-            error: '',
+            ...state, events: action.payload, loading: false, error: null,
         };
+    }
 
-    case actionsTypes.LOGOUT_SUCCESS:
+    case actionsTypes.FECTH_EVENTS_ERROR:
         return {
-            ...state,
-            loading: false,
-            authenticated: null,
+            ...state, error: action.payload, loading: false, events: [],
         };
 
-    case actionsTypes.LOGOUT_ERROR:
-        return { ...state, loading: false, error: action.payload };
+    case actionsTypes.CLEAR_ERROR: return { ...state, error: null };
 
     default:
         return state;
