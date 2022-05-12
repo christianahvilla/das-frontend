@@ -1,9 +1,14 @@
 .calendar-title {
     margin-top: 55px;
+    padding-left: 10px;
 }
 
 .calendar-container {
     padding: 20px 0;
+}
+
+.calendar-container--buton {
+    padding-left: 2%;
 }
 
 .fc-button.fc-button-primary {

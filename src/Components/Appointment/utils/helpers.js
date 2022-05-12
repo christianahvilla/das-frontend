@@ -1,6 +1,7 @@
 import * as dateFns from 'date-fns';
 import moment from 'moment';
 import { v4 as uuidv4 } from 'uuid';
+import { COLOR_COMPONENTS } from '../../../utils/constants';
 import { INITIAL_APPOINTMENT } from './constants';
 
 /* eslint-disable import/prefer-default-export */
@@ -56,10 +57,11 @@ export const formattedValues = (values, id) => {
     const newValues = {
         ...values,
         id: id || uuidv4(),
-        start_date: moment(values.start_date).format('L'),
-        end_date: moment(values.end_date).format('L'),
+        start_date: moment(values.start_date).format('DD/MM/YYYY'),
+        end_date: moment(values.end_date).format('DD/MM/YYYY'),
         start_hour: moment(values.start_hour).format('HH:mm'),
         end_hour: moment(values.end_hour).format('HH:mm'),
+        color: COLOR_COMPONENTS[Math.floor(Math.random() * (7 - 0)) + 0],
     };
 
     return newValues;
@@ -77,7 +79,7 @@ const formatHour = (time) => {
 const formatDate = (date) => {
     const defaultDate = new Date();
 
-    defaultDate.setMonth((+date[0] - 1), date[1]);
+    defaultDate.setMonth((+date[1] - 1), date[0]);
     defaultDate.setFullYear(+date[2]);
 
     return defaultDate;
