@@ -18,7 +18,7 @@ import Progress from '../Progress';
 const params = {
     headers: {
         Accept: 'application/json',
-        authorization: `Bearer ${localStorage.getItem('token')}`,
+        'auth-token': localStorage.getItem('token'),
     },
 };
 

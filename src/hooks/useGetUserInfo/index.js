@@ -7,7 +7,7 @@ export default () => {
         name,
         email,
         type,
-        access_token: token,
+        token,
     } = auth || {};
 
     const userInfo = {

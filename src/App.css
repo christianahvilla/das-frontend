@@ -4,9 +4,12 @@ html, body, #root, #root>div {
 
 .container {
     height: 100%;
-    overflow: scroll;
 }
 
 .rs-form-group {
     margin-bottom: 35px!important;
+}
+
+.rs-container-has-sidebar {
+    height: initial;
 }

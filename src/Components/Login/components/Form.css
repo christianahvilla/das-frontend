@@ -32,6 +32,10 @@
     }
 }
 
+.login-container {
+    overflow: hidden;
+}
+
 .login-container button {
     width: 100%;
 }

@@ -16,7 +16,7 @@ moment.locale('es-mx');
  * @returns {Array}
  */
 const getFilteredList = (date, list = []) => {
-    const day = moment(date).format('L');
+    const day = moment(date).format('DD/MM/YYYY');
 
     const filteredList = list?.filter((event) => {
         return event.start_date.includes(day);
@@ -39,7 +39,6 @@ const getFilteredList = (date, list = []) => {
  * @param {Array} list
  * @returns {React}
  */
-
 export const renderCell = (date, onClick, list = []) => {
     const filteredList = getFilteredList(date, list);
     const displayList = filteredList.filter((_item, index) => index < 1);

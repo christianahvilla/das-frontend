@@ -20,7 +20,7 @@ import Progress from '../Progress';
 const params = {
     headers: {
         Accept: 'application/json',
-        authorization: `Bearer ${localStorage.getItem('token')}`,
+        'auth-token': localStorage.getItem('token'),
     },
 };
 
@@ -72,7 +72,7 @@ const Calendar = () => {
                     <Col xs={24}>
                         <Row>
                             <h2 className="calendar-title">Agenda</h2>
-                            <Col xsOffset={19} smOffset={18} mdOffset={21}>
+                            <Col className="calendar-container--buton" xsOffset={19} smOffset={18} mdOffset={21}>
                                 <CommonButton Icon={() => <PlusIcon />} onClick={handleCreate} color="blue" appearance="primary" text="Nueva Cita" />
                             </Col>
                         </Row>
